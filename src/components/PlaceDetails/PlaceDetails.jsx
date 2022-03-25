@@ -1,8 +1,8 @@
 import React from 'react'
-import {Card, CardMedia, CardContent, Typography} from "@material-ui/core"
-
+import {Card, CardMedia, CardContent, Typography, Box, Chip, Button, CardActions} from "@material-ui/core"
+import useStyles from "./styles"
 const PlaceDetails = ({place}) => {
-  console.log(place)
+  const classes=useStyles()
   return (
     <Card elevation={3}>
       <CardMedia
@@ -12,6 +12,30 @@ const PlaceDetails = ({place}) => {
       />
       <CardContent>
         <Typography gutterBottom variant='h5'>{place.name}</Typography>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant='subtitle1'>Price</Typography>
+          <Typography variant='subtitle1'>{place.price? place.price : place.price_level}</Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant='subtitle1'>Ranking</Typography>
+          <Typography variant='subtitle1' gutterBottom>{place.ranking}</Typography>
+        </Box>
+        {place.awards?.map((award,idx)=>(
+          <Box mb={0.5} display="flex" justifyContent="space-between" alignItems="center">
+            <img src={award.images.small} alt={award.display_name} className={classes.award_img}/>
+            <Typography variant='subtitle2' color="textSecondary">
+              {award.display_name}
+            </Typography>
+          </Box>
+        ))}
+        {place.cuisine?.map(({name}, idx)=>(<Chip key={idx} size="small" label={name} className={classes.chip}/>))}
+
+        <CardActions>
+          <Button size='small' className={classes.btn} onClick={()=>window.open(place.web_url, "_blank")}>Trip Advisor</Button>
+          <Button size='small' className={classes.btn} onClick={()=>window.open(place.website, "_blank")}>Website</Button>
+        </CardActions>
+
+
       </CardContent>
     </Card>
   )
