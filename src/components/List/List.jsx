@@ -11,9 +11,15 @@ import {
 import useStyles from "./styles";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
-const List = ({ places, isLoading, clickedChild }) => {
-  const [type, setType] = useState("restaurants");
-  const [rating, setRating] = useState("");
+const List = ({
+  places,
+  isLoading,
+  clickedChild,
+  type,
+  setType,
+  rating,
+  setRating,
+}) => {
   const [elRefs, setElRefs] = useState([]);
   const classes = useStyles();
 
@@ -55,15 +61,19 @@ const List = ({ places, isLoading, clickedChild }) => {
         </div>
       ) : (
         <Grid container className={classes.list} spacing={3}>
-          {places?.map((place, idx) => (
-            <Grid item ref={elRefs[idx]} key={idx} xs={12}>
-              <PlaceDetails
-                place={place}
-                selected={Number(clickedChild) === idx}
-                refProp={elRefs[idx]}
-              />
-            </Grid>
-          ))}
+          {places.length > 0 ? (
+            places.map((place, idx) => (
+              <Grid item ref={elRefs[idx]} key={idx} xs={12}>
+                <PlaceDetails
+                  place={place}
+                  selected={Number(clickedChild) === idx}
+                  refProp={elRefs[idx]}
+                />
+              </Grid>
+            ))
+          ) : (
+            <Typography>0 results found😔</Typography>
+          )}
         </Grid>
       )}
     </div>
