@@ -6,6 +6,7 @@ import {
   Select,
   MenuItem,
   Grid,
+  CircularProgress,
 } from "@material-ui/core";
 import useStyles from "./styles";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
@@ -17,11 +18,11 @@ const List = ({ places, isLoading, clickedChild }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    setElRefs((refs) =>
-      Array(places.length)
+    setElRefs((refs) => {
+      return Array(places.length)
         .fill()
-        .map((_, idx) => refs[idx] || createRef())
-    );
+        .map((_, idx) => refs[idx] || createRef());
+    });
   }, [places]);
 
   return (
@@ -48,17 +49,23 @@ const List = ({ places, isLoading, clickedChild }) => {
         </Select>
       </FormControl>
 
-      <Grid container className={classes.list} spacing={3}>
-        {places?.map((place, idx) => (
-          <Grid item ref={elRefs[idx]} key={idx} xs={12}>
-            <PlaceDetails
-              place={place}
-              selected={Number(clickedChild) === idx}
-              refProp={elRefs[idx]}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      {isLoading ? (
+        <div className={classes.loading}>
+          <CircularProgress size="3rem" />
+        </div>
+      ) : (
+        <Grid container className={classes.list} spacing={3}>
+          {places?.map((place, idx) => (
+            <Grid item ref={elRefs[idx]} key={idx} xs={12}>
+              <PlaceDetails
+                place={place}
+                selected={Number(clickedChild) === idx}
+                refProp={elRefs[idx]}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </div>
   );
 };

@@ -15,7 +15,6 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Rating from "@material-ui/lab/Rating";
 
 const PlaceDetails = ({ place, selected, refProp }) => {
-  console.log(refProp);
   if (selected)
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   const classes = useStyles();
