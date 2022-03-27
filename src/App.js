@@ -4,8 +4,10 @@ import { getPlacesData, getWeatherData } from "./api";
 import Header from "./components/Header/Header";
 import List from "./components/List/List";
 import Map from "./components/Map/Map";
+import useTitle from "./hooks/useTitle";
 
 const App = () => {
+  useTitle("Travel Companion");
   const [places, setPlaces] = useState([]);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
