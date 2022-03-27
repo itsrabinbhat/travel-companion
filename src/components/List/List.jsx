@@ -57,7 +57,7 @@ const List = ({
 
       {isLoading ? (
         <div className={classes.loading}>
-          <CircularProgress size="3rem" />
+          <CircularProgress size="3rem" color="#079992" />
         </div>
       ) : (
         <Grid container className={classes.list} spacing={3}>
