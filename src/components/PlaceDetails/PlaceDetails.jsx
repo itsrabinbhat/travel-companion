@@ -50,7 +50,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
           </Typography>
         </Box>
         {place.awards?.map((award, idx) => (
-          <Box mb={0.5} className={classes.spacing}>
+          <Box mb={0.5} className={classes.spacing} key={idx}>
             <img
               src={award.images.small}
               alt={award.display_name}

@@ -11,13 +11,14 @@ const Map = ({
   setBounds,
   places,
   setClickedChild,
+  weatherdata,
 }) => {
   const screenSize = useMediaQuery("(min-width: 600px)");
   const classes = useStyles();
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyCGWY_BCzJnXAKijrDI2Wc_s8mfOuO8Otg" }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}
@@ -63,6 +64,14 @@ const Map = ({
                 style={{ color: "#079992" }}
               />
             )}
+          </div>
+        ))}
+        {weatherdata?.map((data, idx) => (
+          <div key={idx} lat={data.coord.lat} lng={data.coord.lon}>
+            <img
+              src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+              height="50px"
+            />
           </div>
         ))}
       </GoogleMapReact>
